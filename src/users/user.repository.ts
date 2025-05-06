@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { User } from './user.entity';
 
 @Injectable()
@@ -10,23 +11,23 @@ export class UserRepository {
     private readonly repo: Repository<User>,
   ) {}
 
-  create(user: Partial<User>) {
-    return this.repo.save(user);
+  async create(user: Partial<User>): Promise<User> {
+    return await this.repo.save(user);
   }
 
-  findAll() {
-    return this.repo.find();
+  async findAll(): Promise<User[]> {
+    return await this.repo.find();
   }
 
-  findOne(id: string) {
-    return this.repo.findOne({ where: { id } });
+  async findOne(id: string): Promise<User | null> {
+    return await this.repo.findOne({ where: { id } });
   }
 
-  update(id: string, data: Partial<User>) {
-    return this.repo.update(id, data);
+  async update(id: string, data: Partial<User>): Promise<void> {
+    await this.repo.update(id, data);
   }
 
-  remove(id: string) {
-    return this.repo.delete(id);
+  async remove(id: string): Promise<void> {
+    await this.repo.softDelete(id);
   }
 }

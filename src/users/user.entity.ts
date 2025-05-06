@@ -1,36 +1,33 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 
-export type UserRole = 'super_user' | 'admin' | 'coordinator';
+import { Tenant } from '../tenants/entities/tenant.entity';
+import { BaseEntity } from 'src/common/entities/base.entity';
 
-@Entity('users')
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+@Entity()
+export class User extends BaseEntity {
+  @Column()
+  tenant_id: string;
+  
+  @Column()
+  first_name: string;
 
   @Column()
-  name: string;
+  last_name: string;
 
-  @Column({ unique: true })
+  @Column()
   email: string;
 
   @Column()
   password: string;
 
-  @Column({ type: 'enum', enum: ['super_user', 'admin', 'coordinator'] })
-  role: UserRole;
-
   @Column()
-  tenantSlug: string;
+  date_of_birth: Date;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @Column({ default: 'coordinator' })
+  role: 'super' | 'admin' | 'coordinator';
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @ManyToOne(() => Tenant, tenant => tenant.users)
+  @JoinColumn({ name: 'tenant_id' })
+  tenant: Tenant;
+
 }
