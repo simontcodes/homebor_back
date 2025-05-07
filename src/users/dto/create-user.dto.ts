@@ -1,10 +1,15 @@
-import { IsEmail, IsEnum, IsNotEmpty, MinLength } from 'class-validator';
+import { IsDate, IsDateString, IsEmail, IsEnum, IsIn, IsNotEmpty, MinLength } from 'class-validator';
 
-import { UserRole } from '../user.entity';
+import { User } from '../user.entity';
+import { UserRole } from '../enums/roles.enum';
+
 
 export class CreateUserDto {
   @IsNotEmpty()
-  name: string;
+  first_name: string;
+
+  @IsNotEmpty()
+  last_name: string;
 
   @IsEmail()
   email: string;
@@ -12,9 +17,10 @@ export class CreateUserDto {
   @MinLength(6)
   password: string;
 
-  @IsEnum(['super_user', 'admin', 'coordinator'])
+  @IsEnum(UserRole)
   role: UserRole;
 
-  @IsNotEmpty()
-  tenantSlug: string;
+  @IsDate()
+  date_of_birth: Date;
 }
+

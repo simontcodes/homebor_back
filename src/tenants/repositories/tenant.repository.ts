@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, QueryRunner } from 'typeorm';
 
 import { Tenant } from '../entities/tenant.entity';
 import { CreateTenantDto } from '../dto/create-tenant.dto';
@@ -13,9 +13,9 @@ export class TenantRepository {
     private readonly repo: Repository<Tenant>,
   ) {}
 
-  create(data: CreateTenantDto) {
-    const tenant = this.repo.create(data);
-    return this.repo.save(tenant);
+  async createWithQueryRunner(dto: CreateTenantDto, queryRunner: QueryRunner): Promise<Tenant> {
+    const tenant = queryRunner.manager.create(Tenant, dto);
+    return await queryRunner.manager.save(tenant);
   }
 
   findAll() {

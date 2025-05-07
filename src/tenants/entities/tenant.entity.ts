@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
-import { User } from '../../users/user.entity';
+
 
 @Entity()
 export class Tenant {
@@ -13,6 +13,5 @@ export class Tenant {
   @Column()
   name: string;
 
-  @OneToMany(() => User, user => user.tenant)
-  users: User[];
+  //TODO: add relationship to clients
 }

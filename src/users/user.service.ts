@@ -21,7 +21,7 @@ export class UserService {
   }
 
   update(id: string, dto: UpdateUserDto) {
-    return this.userRepo.update(id, dto);
+    return this.userRepo.updateWithQueryRunner(id, dto);
   }
 
   remove(id: string) {

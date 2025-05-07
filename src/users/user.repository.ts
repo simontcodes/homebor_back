@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { QueryRunner, Repository } from 'typeorm';
 
 import { User } from './user.entity';
 
@@ -23,8 +23,12 @@ export class UserRepository {
     return await this.repo.findOne({ where: { id } });
   }
 
-  async update(id: string, data: Partial<User>): Promise<void> {
-    await this.repo.update(id, data);
+  async findByEmail(email: string) {
+    return this.repo.findOne({ where: { email } });
+  }
+
+  async updateWithQueryRunner(id: string, data: Partial<User>, queryRunner?: QueryRunner): Promise<void> {
+    await queryRunner?.manager.update(User, id, data);
   }
 
   async remove(id: string): Promise<void> {

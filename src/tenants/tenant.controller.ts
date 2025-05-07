@@ -10,26 +10,26 @@ export class TenantController {
 
   @Post()
   create(@Body() dto: CreateTenantDto) {
-    return this.tenantService.create(dto);
+    return this.tenantService.createTenant(dto);
   }
 
-  @Get()
-  findAll() {
-    return this.tenantService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.tenantService.findAll();
+  // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tenantService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.tenantService.findOne(id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateTenantDto) {
-    return this.tenantService.update(id, dto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() dto: UpdateTenantDto) {
+  //   return this.tenantService.update(id, dto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tenantService.remove(id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.tenantService.remove(id);
+  // }
 }
