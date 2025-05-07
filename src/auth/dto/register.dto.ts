@@ -16,7 +16,6 @@ export class RegisterUserDto {
   @IsNotEmpty({ message: 'Password is required' })
   @MinLength(6, { message: 'Password must be at least 6 characters' })
   @MaxLength(32, { message: 'Password must be no longer than 32 characters' })
-  // Optional but recommended: enforce complexity
   @Matches(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/, {
     message: 'Password must contain upper, lower case letters and numbers',
   })
