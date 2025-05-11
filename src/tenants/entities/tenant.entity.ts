@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
+
+import { User } from 'src/users/entities/user.entity';
+import { TenantConfig } from 'src/tenantCongif/entities/tenant-config.entity';
 
 
 
@@ -13,5 +16,22 @@ export class Tenant {
   @Column()
   name: string;
 
-  //TODO: add relationship to clients
+  @OneToMany(() => User, (user) => user.tenant)
+  users: User[];
+
+  @Column({ type: 'uuid' })
+  adminUserId: string;
+
+  @Column({ unique: true })
+  email: string;
+
+  @OneToOne(() => TenantConfig, (config) => config.tenant, { cascade: true })
+  config: TenantConfig;
+
+  // @OneToMany(() => Client, (client) => client.tenant)
+  // clients: Client[];
+
+  // @OneToMany(() => Home, (home) => home.tenant)
+  // Homes: Home[];
+
 }

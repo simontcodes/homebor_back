@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './users/user.module';
 import { TenantMiddleware } from './common/middleware/tenant.middleware';
 import { AuthModule } from './auth/auth.module';
+import { TenantModule } from './tenants/tenant.module';
+import { TenantConfigModule } from './tenantCongif/tenant-config.module';
 
 
 @Module({
@@ -30,7 +32,9 @@ import { AuthModule } from './auth/auth.module';
       }),
     }),
     UserModule,
-    AuthModule
+    AuthModule,
+    TenantModule,
+    TenantConfigModule
   ],
   controllers: [AppController],
   providers: [AppService],

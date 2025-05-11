@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,14 +24,19 @@ export class AuthService {
     }
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
-    return this.userRepo.create({
+    const createdUser = await this.userRepo.create({
       email: dto.email,
       password: hashedPassword,
       first_name: dto.first_name,
       last_name: dto.last_name,
       date_of_birth: dto.date_of_birth,
-      role: dto.role
+      role: dto.role,
     });
+
+    const { password, created_at, updated_at, deletedAt, ...userSafe } =
+      createdUser;
+
+    return userSafe;
   }
 
   async login(dto: LoginUserDto) {
@@ -40,11 +49,23 @@ export class AuthService {
     const payload = {
       sub: user.id,
       email: user.email,
-      role: user.role
+      role: user.role,
     };
 
     return {
       access_token: this.jwtService.sign(payload),
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        tenant: user.tenant
+          ? {
+              id: user.tenant.id,
+              name: user.tenant.name,
+              slug: user.tenant.slug,
+            }
+          : null,
+      },
     };
   }
 }

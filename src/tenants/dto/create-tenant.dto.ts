@@ -11,13 +11,6 @@
     })
     name: string;
   
-    @IsNotEmpty()
-    @IsString()
-    @Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
-      message: 'Slug must be lowercase and can only include letters, numbers, and dashes',
-    })
-    slug: string;
-  
     @IsEmail()
     @IsNotEmpty()
     @MaxLength(100, { message: 'Email is too long' })
@@ -26,5 +19,11 @@
     @IsUUID()
     @IsNotEmpty()
     adminUserId: string;
+  }
+
+  export class CreateTenantDtoWithSlug extends CreateTenantDto {
+    @IsNotEmpty()
+    @IsString()
+    slug: string;
   }
   
