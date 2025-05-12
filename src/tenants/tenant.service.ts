@@ -86,7 +86,7 @@ export class TenantService {
   //   if (!tenant) {
   //     throw new NotFoundException('Tenant not found');
   //   }
-  
+
   //   Object.assign(tenant, dto);
   //   return this.tenantRepo.save(tenant);
   // }

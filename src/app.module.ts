@@ -11,7 +11,6 @@ import { AuthModule } from './auth/auth.module';
 import { TenantModule } from './tenants/tenant.module';
 import { TenantConfigModule } from './tenantCongif/tenant-config.module';
 
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -34,7 +33,7 @@ import { TenantConfigModule } from './tenantCongif/tenant-config.module';
     UserModule,
     AuthModule,
     TenantModule,
-    TenantConfigModule
+    TenantConfigModule,
   ],
   controllers: [AppController],
   providers: [AppService],

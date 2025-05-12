@@ -1,12 +1,14 @@
-// @ts-check
 import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import path from 'path';
+
+const __dirname = path.resolve(); // Ensures tsconfigRootDir is resolved properly
 
 export default tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ['eslint.config.js'], // make sure this matches the actual file name
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -20,7 +22,8 @@ export default tseslint.config(
       sourceType: 'commonjs',
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        allowDefaultProject: true,
+        tsconfigRootDir: __dirname,
       },
     },
   },

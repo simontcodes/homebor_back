@@ -1,8 +1,15 @@
-import { IsDate, IsDateString, IsEmail, IsEnum, IsIn, IsNotEmpty, MinLength } from 'class-validator';
+import {
+  IsDate,
+  IsDateString,
+  IsEmail,
+  IsEnum,
+  IsIn,
+  IsNotEmpty,
+  MinLength,
+} from 'class-validator';
 
 import { User } from '../entities/user.entity';
 import { UserRole } from '../enums/roles.enum';
-
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -23,4 +30,3 @@ export class CreateUserDto {
   @IsDate()
   date_of_birth: Date;
 }
-

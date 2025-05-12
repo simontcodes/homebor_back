@@ -1,9 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 
 import { User } from 'src/users/entities/user.entity';
 import { TenantConfig } from 'src/tenantCongif/entities/tenant-config.entity';
-
-
 
 @Entity()
 export class Tenant {
@@ -33,5 +37,4 @@ export class Tenant {
 
   // @OneToMany(() => Home, (home) => home.tenant)
   // Homes: Home[];
-
 }

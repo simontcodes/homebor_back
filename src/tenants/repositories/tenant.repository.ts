@@ -14,7 +14,10 @@ export class TenantRepository {
     private readonly repo: Repository<Tenant>,
   ) {}
 
-  async createWithQueryRunner(dto: CreateTenantDtoWithSlug, queryRunner: QueryRunner): Promise<Tenant> {
+  async createWithQueryRunner(
+    dto: CreateTenantDtoWithSlug,
+    queryRunner: QueryRunner,
+  ): Promise<Tenant> {
     const tenant = queryRunner.manager.create(Tenant, dto);
     return await queryRunner.manager.save(tenant);
   }

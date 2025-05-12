@@ -37,7 +37,11 @@ export class UserRepository {
     });
   }
 
-  async updateWithQueryRunner(id: string, data: Partial<User>, queryRunner?: QueryRunner): Promise<void> {
+  async updateWithQueryRunner(
+    id: string,
+    data: Partial<User>,
+    queryRunner?: QueryRunner,
+  ): Promise<void> {
     await queryRunner?.manager.update(User, id, data);
   }
 

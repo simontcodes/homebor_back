@@ -1,8 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 
 import { BaseEntity } from 'src/common/entities/base.entity';
 import { UserRole } from '../enums/roles.enum';
 import { Tenant } from 'src/tenants/entities/tenant.entity';
+import { Role } from 'src/auth/role/entities/role.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -26,4 +33,7 @@ export class User extends BaseEntity {
 
   @ManyToOne(() => Tenant, (tenant) => tenant.users, { nullable: true })
   tenant: Tenant;
+
+  @ManyToOne(() => Role, { eager: true })
+  role: Role;
 }

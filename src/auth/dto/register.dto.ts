@@ -33,5 +33,5 @@ export class RegisterUserDto {
   date_of_birth: Date;
 
   @IsEnum(UserRole)
-  role: UserRole
+  role: UserRole;
 }
