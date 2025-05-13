@@ -7,7 +7,7 @@ import {
   IsDate,
   IsEnum,
 } from 'class-validator';
-import { UserRole } from 'src/users/enums/roles.enum';
+import { UserRole } from '../../users/enums/roles.enum';
 
 export class RegisterUserDto {
   @IsEmail({}, { message: 'Email must be valid' })

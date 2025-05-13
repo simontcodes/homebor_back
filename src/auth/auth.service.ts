@@ -6,7 +6,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
-import { UserRepository } from 'src/users/user.repository';
+import { UserRepository } from '../users/user.repository';
 import { LoginUserDto } from './dto/login.dto';
 import { RegisterUserDto } from './dto/register.dto';
 
@@ -30,7 +30,6 @@ export class AuthService {
       first_name: dto.first_name,
       last_name: dto.last_name,
       date_of_birth: dto.date_of_birth,
-      role: dto.role,
     });
 
     const { password, created_at, updated_at, deletedAt, ...userSafe } =

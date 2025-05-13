@@ -23,6 +23,13 @@ export class UserRepository {
     return await this.repo.findOne({ where: { id } });
   }
 
+  async findByIdWithRoleAndPermissions(id: string): Promise<User | null> {
+    return await this.repo.findOne({
+      where: { id },
+      relations: ['role', 'role.permissions', 'tenant'],
+    });
+  }
+
   async findByIdWithTenant(id: string): Promise<User | null> {
     return await this.repo.findOne({
       where: { id },

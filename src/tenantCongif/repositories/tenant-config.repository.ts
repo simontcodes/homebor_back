@@ -7,7 +7,7 @@ import { DataSource, Repository } from 'typeorm';
 
 import { TenantConfig } from '../entities/tenant-config.entity';
 import { CreateTenantConfigDto } from '../dto/create-tenant-config.dto';
-import { Tenant } from 'src/tenants/entities/tenant.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 @Injectable()
 export class TenantConfigRepository {

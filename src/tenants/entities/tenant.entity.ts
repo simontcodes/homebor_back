@@ -6,8 +6,8 @@ import {
   OneToOne,
 } from 'typeorm';
 
-import { User } from 'src/users/entities/user.entity';
-import { TenantConfig } from 'src/tenantCongif/entities/tenant-config.entity';
+import { User } from '../../users/entities/user.entity';
+import { TenantConfig } from '../../tenantCongif/entities/tenant-config.entity';
 
 @Entity()
 export class Tenant {
