@@ -25,7 +25,7 @@ export class CreateUserDto {
   password: string;
 
   @IsNotEmpty()
-  roleId: string; 
+  roleId: string;
 
   @IsDate()
   date_of_birth: Date;

@@ -1,8 +1,16 @@
-import { Controller, Patch, Body, Param, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Patch,
+  Body,
+  Param,
+  Get,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 
 import { TenantConfigService } from './tenant-config.service';
 import { UpdateTenantConfigDto } from './dto/update-tenant-config.dto';
-import { toPublicTenantConfig } from '../common/utils/public-config-formatting'
+import { toPublicTenantConfig } from '../common/utils/public-config-formatting';
 import { CreateTenantConfigDto } from './dto/create-tenant-config.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -12,7 +20,7 @@ import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
 import { Public } from '../auth/decorators/public.decorator';
 
 @Controller('tenant-config')
-@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard) 
+@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
 export class TenantConfigController {
   constructor(private readonly configService: TenantConfigService) {}
 

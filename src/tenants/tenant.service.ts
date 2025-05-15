@@ -25,27 +25,27 @@ export class TenantService {
 
   async createTenant(dto: CreateTenantDto) {
     console.log('Creating tenant:', dto);
-  
+
     const slug = slugify(dto.name);
     const existing = await this.tenantRepo.findBySlug(slug);
     if (existing) {
       throw new ConflictException('Tenant slug already exists');
     }
-  
+
     const user = await this.userRepo.findOne(dto.adminUserId);
     if (!user) {
       throw new NotFoundException('Admin user not found');
     }
-  
+
     const adminRole = await this.roleRepo.findByName('admin');
     if (!adminRole) {
       throw new NotFoundException('Role "admin" not found');
     }
-  
+
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
-  
+
     try {
       const tenant = await this.tenantRepo.createWithQueryRunner(
         {
@@ -56,7 +56,7 @@ export class TenantService {
         },
         queryRunner,
       );
-  
+
       await this.userRepo.updateWithQueryRunner(
         user.id,
         {
@@ -65,14 +65,14 @@ export class TenantService {
         },
         queryRunner,
       );
-  
+
       await queryRunner.commitTransaction();
-  
+
       const updatedUser = await this.userRepo.findByIdWithTenant(user.id);
       if (!updatedUser) {
         throw new NotFoundException('Updated user not found');
       }
-  
+
       return {
         tenant,
         user: toPublicUser(updatedUser),
@@ -85,7 +85,6 @@ export class TenantService {
       await queryRunner.release();
     }
   }
-  
 
   async findAll() {
     return this.tenantRepo.findAll();
