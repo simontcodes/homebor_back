@@ -8,6 +8,8 @@ import {
 
 import { User } from '../../users/entities/user.entity';
 import { TenantConfig } from '../../tenantCongif/entities/tenant-config.entity';
+import { Home } from '../../homes/entities/home.entity';
+import { Client } from '../../clients/entities/client.entity';
 
 @Entity()
 export class Tenant {
@@ -32,9 +34,9 @@ export class Tenant {
   @OneToOne(() => TenantConfig, (config) => config.tenant, { cascade: true })
   config: TenantConfig;
 
-  // @OneToMany(() => Client, (client) => client.tenant)
-  // clients: Client[];
+  @OneToMany(() => Client, (client) => client.tenant)
+  clients: Client[];
 
-  // @OneToMany(() => Home, (home) => home.tenant)
-  // Homes: Home[];
+  @OneToMany(() => Home, (home) => home.provider)
+  Homes: Home[];
 }

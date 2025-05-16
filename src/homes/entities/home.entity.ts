@@ -1,11 +1,12 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
+
 import { Tenant } from 'src/tenants/entities/tenant.entity';
 import { BaseEntity } from 'src/common/entities/base.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Entity()
 export class Home extends BaseEntity {
-  @ManyToOne(() => User, { nullable: false })
+  @ManyToOne(() => Tenant, { nullable: false })
   provider: Tenant;
 
   @Column()
@@ -31,4 +32,13 @@ export class Home extends BaseEntity {
 
   @Column({ default: false })
   special_diet: boolean;
+
+  @Column({ default: true }) //change this to false after testing
+  is_approved: boolean;
+
+  @Column({ type: 'timestamp', nullable: true })
+  approved_at: Date;
+
+  @ManyToOne(() => User, { nullable: true })
+  approved_by: User;
 }
