@@ -20,7 +20,10 @@ export class ClientRepository {
   }
 
   findById(id: string) {
-    return this.repo.findOne({ where: { id }, relations: ['tenant', 'approved_by'] });
+    return this.repo.findOne({
+      where: { id },
+      relations: ['tenant', 'approved_by'],
+    });
   }
 
   async update(id: string, data: Partial<Client>) {

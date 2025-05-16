@@ -1,23 +1,23 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 
 import { TenantService } from './tenant.service';
 import { CreateTenantDto } from './dto/create-tenant.dto';
-import { UpdateTenantDto } from './dto/update-tenant.dto';
-import { UpdateTenantConfigDto } from './dto/update-tenant-config.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { PermissionsGuard } from '../auth/guards/permissions.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Permissions } from '../auth/decorators/permissions.decorator';
+import { UserRole } from 'src/users/enums/roles.enum';
 
+@UseGuards(JwtAuthGuard)
 @Controller('tenants')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
 
   @Post()
+  @Roles(UserRole.ADMIN)
+  @Permissions('tenant:create')
+  @UseGuards(RolesGuard, PermissionsGuard)
   create(@Body() dto: CreateTenantDto) {
     return this.tenantService.createTenant(dto);
   }
@@ -26,24 +26,4 @@ export class TenantController {
   findAll() {
     return this.tenantService.findAll();
   }
-
-  // @Patch(':id/config')
-  // updateConfig(@Param('id') id: string, @Body() dto: UpdateTenantConfigDto) {
-  //   return this.tenantService.updateConfig(id, dto);
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.tenantService.findOne(id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() dto: UpdateTenantDto) {
-  //   return this.tenantService.update(id, dto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.tenantService.remove(id);
-  // }
 }

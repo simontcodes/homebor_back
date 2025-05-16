@@ -1,15 +1,10 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
 
 import { BaseEntity } from '../../common/entities/base.entity';
-import { UserRole } from '../enums/roles.enum';
 import { Tenant } from '../../tenants/entities/tenant.entity';
 import { Role } from '../../RBAC/role/entities/role.entity';
+
+//todo: add permissions to user
 
 @Entity()
 export class User extends BaseEntity {

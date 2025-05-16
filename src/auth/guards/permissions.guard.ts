@@ -5,8 +5,15 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { Request } from 'express';
 
 import { PERMISSIONS_KEY } from '../decorators/permissions.decorator';
+
+interface RequestWithUser extends Request {
+  user: {
+    permissions: Array<string | { code: string }>;
+  };
+}
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
@@ -17,28 +24,28 @@ export class PermissionsGuard implements CanActivate {
       PERMISSIONS_KEY,
       [context.getHandler(), context.getClass()],
     );
-
-    if (!requiredPermissions || requiredPermissions.length === 0) {
+    if (!requiredPermissions?.length) {
       return true;
     }
 
-    const request = context.switchToHttp().getRequest();
-    const user = request.user;
+    const req = context.switchToHttp().getRequest<RequestWithUser>();
+    const { user } = req;
+    if (!user) {
+      throw new ForbiddenException('User context is missing');
+    }
 
-    const userPermissions =
-      user.permissions?.map((p: any) => (typeof p === 'string' ? p : p.code)) ||
-      [];
-
-    const hasPermission = requiredPermissions.every((perm) =>
-      userPermissions.includes(perm),
+    const userPermissions: string[] = user.permissions.map((p) =>
+      typeof p === 'string' ? p : p.code,
     );
 
-    if (!hasPermission) {
+    const hasAll = requiredPermissions.every((perm) =>
+      userPermissions.includes(perm),
+    );
+    if (!hasAll) {
       throw new ForbiddenException(
         `Missing required permissions: ${requiredPermissions.join(', ')}`,
       );
     }
-
     return true;
   }
 }

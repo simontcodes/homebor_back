@@ -4,18 +4,23 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import { UserModule } from './users/user.module';
 import { TenantMiddleware } from './common/middleware/tenant.middleware';
 import { AuthModule } from './auth/auth.module';
 import { TenantModule } from './tenants/tenant.module';
 import { TenantConfigModule } from './tenantCongif/tenant-config.module';
+import { HomeModule } from './homes/homes.module';
+import { ClientModule } from './clients/clients.module';
+import { PairingsModule } from './pairings/pairings.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -34,6 +39,9 @@ import { TenantConfigModule } from './tenantCongif/tenant-config.module';
     AuthModule,
     TenantModule,
     TenantConfigModule,
+    HomeModule,
+    ClientModule,
+    PairingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
