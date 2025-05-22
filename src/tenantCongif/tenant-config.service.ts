@@ -15,9 +15,15 @@ export class TenantConfigService {
   async updateByTenantId(tenantId: string, dto: UpdateTenantConfigDto) {
     try {
       return await this.configRepo.updateByTenantId(tenantId, dto);
-    } catch (err) {
-      throw new NotFoundException(err.message);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : 'Tenant config not found';
+      throw new NotFoundException(message);
     }
+  }
+
+  async findAll() {
+    return this.configRepo.findAll();
   }
 
   async findBySlug(slug: string) {

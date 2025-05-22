@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, QueryRunner } from 'typeorm';
 
 import { Tenant } from '../entities/tenant.entity';
-import { CreateTenantDto } from '../dto/create-tenant.dto';
+// import { CreateTenantDto } from '../dto/create-tenant.dto';
 import { UpdateTenantDto } from '../dto/update-tenant.dto';
 import { CreateTenantDtoWithSlug } from '../dto/create-tenant.dto';
 

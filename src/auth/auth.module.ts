@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/entities/user.entity';
 import { UserModule } from '../users/user.module';
 import { JwtStrategy } from './jwt.strategy';
+import { RoleModule } from 'src/RBAC/role/roles.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { JwtStrategy } from './jwt.strategy';
       signOptions: { expiresIn: '7d' },
     }),
     UserModule,
+    RoleModule,
     TypeOrmModule.forFeature([User]),
   ],
   providers: [AuthService, JwtStrategy],

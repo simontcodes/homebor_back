@@ -17,6 +17,10 @@ export class TenantConfigRepository {
     this.repo = dataSource.getRepository(TenantConfig);
   }
 
+  async findAll(): Promise<TenantConfig[]> {
+    return this.repo.find();
+  }
+
   async create(dto: CreateTenantConfigDto): Promise<TenantConfig> {
     try {
       const tenant = await this.dataSource

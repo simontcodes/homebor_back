@@ -12,6 +12,6 @@ import { RoleModule } from '../RBAC/role/roles.module';
   imports: [TypeOrmModule.forFeature([Tenant]), UserModule, RoleModule],
   providers: [TenantService, TenantRepository],
   controllers: [TenantController],
-  exports: [TenantService],
+  exports: [TenantService, TenantRepository],
 })
 export class TenantModule {}

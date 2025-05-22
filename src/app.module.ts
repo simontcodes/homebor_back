@@ -14,6 +14,7 @@ import { TenantConfigModule } from './tenantCongif/tenant-config.module';
 import { HomeModule } from './homes/homes.module';
 import { ClientModule } from './clients/clients.module';
 import { PairingsModule } from './pairings/pairings.module';
+import { RoleModule } from './RBAC/role/roles.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { PairingsModule } from './pairings/pairings.module';
     HomeModule,
     ClientModule,
     PairingsModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

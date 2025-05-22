@@ -12,5 +12,6 @@ import { TenantModule } from 'src/tenants/tenant.module';
   imports: [TypeOrmModule.forFeature([Client]), UserModule, TenantModule],
   controllers: [ClientController],
   providers: [ClientRepository, ClientService],
+  exports: [ClientRepository],
 })
 export class ClientModule {}

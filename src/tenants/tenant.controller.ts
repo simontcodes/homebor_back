@@ -8,16 +8,18 @@ import { PermissionsGuard } from '../auth/guards/permissions.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Permissions } from '../auth/decorators/permissions.decorator';
 import { UserRole } from 'src/users/enums/roles.enum';
+import { Public } from 'src/auth/decorators/public.decorator';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
 @Controller('tenants')
 export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
 
   @Post()
-  @Roles(UserRole.ADMIN)
-  @Permissions('tenant:create')
-  @UseGuards(RolesGuard, PermissionsGuard)
+  // @Roles(UserRole.ADMIN)
+  // @Permissions('tenant:create')
+  // @UseGuards(RolesGuard, PermissionsGuard)
+  @Public()
   create(@Body() dto: CreateTenantDto) {
     return this.tenantService.createTenant(dto);
   }

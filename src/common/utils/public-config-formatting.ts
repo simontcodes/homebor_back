@@ -6,10 +6,13 @@ export function toPublicTenantConfig(
 ): PublicTenantConfigDto {
   return {
     logoUrl: config.logoUrl ?? null,
+    faviconUrl: config.faviconUrl ?? null,
+    heroText: config.heroText ?? null,
+    heroImageUrl: config.heroImageUrl ?? null,
+    websiteTitle: config.websiteTitle ?? null,
     themeColor: config.themeColor ?? null,
     welcomeMessage: config.welcomeMessage ?? null,
     contactEmail: config.contactEmail ?? null,
-    featuredHomes: config.featuredHomes ?? null,
     showNewsletterSignup: config.showNewsletterSignup ?? false,
   };
 }

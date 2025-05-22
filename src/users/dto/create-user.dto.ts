@@ -1,15 +1,4 @@
-import {
-  IsDate,
-  IsDateString,
-  IsEmail,
-  IsEnum,
-  IsIn,
-  IsNotEmpty,
-  MinLength,
-} from 'class-validator';
-
-import { User } from '../entities/user.entity';
-import { UserRole } from '../enums/roles.enum';
+import { IsDate, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
