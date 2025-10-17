@@ -16,10 +16,13 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+
+    "paths": {
+      "src/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"]
+    }
   },
-  "include": [
-    "src/**/*.ts",
-    "eslint.config.js"
-  ]
+  "include": ["src/**/*.ts", "eslint.config.js"]
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, DeepPartial, Repository } from 'typeorm';
 import { Home } from '../entities/home.entity';
 
 @Injectable()
@@ -10,8 +10,9 @@ export class HomeRepository {
     this.repo = dataSource.getRepository(Home);
   }
 
-  create(data: Partial<Home>) {
-    return this.repo.save(data);
+  async create(data: DeepPartial<Home>): Promise<Home> {
+    const entity = this.repo.create(data); // prepares relations too
+    return this.repo.save(entity);
   }
 
   findAll() {

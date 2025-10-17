@@ -9,6 +9,7 @@ import { PairingRepository } from './repositories/pairings.repository';
 import { ClientRepository } from '../clients/repositories/clients.repository';
 import { HomeRepository } from '../homes/repositories/homes.repository';
 import { CreatePairingDto } from './dto/create-pairing.dto';
+import { AuthUser } from 'src/auth/jwt.strategy';
 
 @Injectable()
 export class PairingService {
@@ -18,7 +19,8 @@ export class PairingService {
     private readonly homeRepo: HomeRepository,
   ) {}
 
-  async create(dto: CreatePairingDto) {
+  async create(dto: CreatePairingDto, user: AuthUser) {
+    console.log(user);
     const client = await this.clientRepo.findById(dto.clientId);
     if (!client) throw new NotFoundException('Client not found');
     if (!client.approved)

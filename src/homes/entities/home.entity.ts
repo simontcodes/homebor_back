@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import { Tenant } from 'src/tenants/entities/tenant.entity';
 import { BaseEntity } from 'src/common/entities/base.entity';
@@ -7,6 +7,7 @@ import { User } from 'src/users/entities/user.entity';
 @Entity()
 export class Home extends BaseEntity {
   @ManyToOne(() => Tenant, { nullable: false })
+  @JoinColumn({ name: 'providerId' }) // <- explicit FK column name
   provider: Tenant;
 
   @Column()
